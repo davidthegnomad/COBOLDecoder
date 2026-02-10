@@ -1,0 +1,214 @@
+{
+  "sql_mappings": [
+    {
+      "standard_sql": "LIMIT",
+      "db2_equivalent": "FETCH FIRST n ROWS ONLY",
+      "logic": "DB2 uses FETCH FIRST to restrict the number of rows returned by a query.",
+      "example": "ORDER BY SIMILARITY DESC FETCH FIRST 5 ROWS ONLY;"
+    },
+    {
+      "standard_sql": "CURRENT_DATE",
+      "db2_equivalent": "CURRENT DATE",
+      "logic": "DB2 uses a space instead of an underscore for this special register.",
+      "example": "DEFAULT CURRENT DATE"
+    },
+    {
+      "standard_sql": "CURRENT_TIMESTAMP",
+      "db2_equivalent": "CURRENT TIMESTAMP",
+      "logic": "DB2 uses a space instead of an underscore. Supports precision arguments.",
+      "example": "DEFAULT CURRENT TIMESTAMP(6),"
+    },
+    {
+      "standard_sql": "SUBSTRING",
+      "db2_equivalent": "SUBSTR",
+      "logic": "The sources list SUBSTR as the scalar function for string extraction.",
+      "example": "SUBSTR(A.CREATOR,1,10),"
+    },
+    {
+      "standard_sql": "POSITION",
+      "db2_equivalent": "POSSTR",
+      "logic": "The sources list POSSTR as the scalar function to find a string position.",
+      "example": "POSSTR listed in Scalar Functions"
+    },
+    {
+      "standard_sql": "COALESCE",
+      "db2_equivalent": "VALUE",
+      "logic": "VALUE is listed as a scalar function (often a DB2 synonym for COALESCE).",
+      "example": "VALUE listed in Scalar Functions"
+    },
+    {
+      "standard_sql": "UPPER",
+      "db2_equivalent": "UCASE",
+      "logic": "Sources list UCASE as a function (often synonymous with UPPER).",
+      "example": "UCASE or UPPER listed in Scalar Functions"
+    },
+    {
+      "standard_sql": "LOWER",
+      "db2_equivalent": "LCASE",
+      "logic": "Sources list LCASE as a function (often synonymous with LOWER).",
+      "example": "LCASE or LOWER listed in Scalar Functions"
+    },
+    {
+      "standard_sql": "GENERATED ...",
+      "db2_equivalent": "GENERATED ALWAYS AS IDENTITY",
+      "logic": "DB2 syntax for auto-incrementing columns.",
+      "example": "GENERATED ALWAYS AS IDENTITY (START WITH 1 ...)"
+    },
+    {
+      "standard_sql": "DUAL",
+      "db2_equivalent": "SYSIBM.SYSDUMMY1",
+      "logic": "The catalog view used for single-row tests or variable evaluation.",
+      "example": "SYSIBM.SYSDUMMY1"
+    }
+  ],
+  "error_codes": [
+    {
+      "code": "-904",
+      "description": "Resource Unavailable",
+      "cause": "Partition lock failure or partition full (Reason 00C90090 or 00C9009C).",
+      "fix": "Check if utility is running or partition is full. Db2 13 auto-retries partition locks."
+    },
+    {
+      "code": "-911",
+      "description": "Deadlock or Timeout",
+      "cause": "Application process deadlocked with another process or timed out waiting for a lock.",
+      "fix": "Review contention; Db2 13 allows DEADLOCK_RESOLUTION_PRIORITY tuning."
+    },
+    {
+      "code": "-913",
+      "description": "Deadlock/Timeout (Victim)",
+      "cause": "Similar to -911, often seen during partition insert contention with Reason 00C9008E.",
+      "fix": "Check DSNT375I console message for lock holder/waiter details."
+    },
+    {
+      "code": "-811",
+      "description": "More than one row returned",
+      "cause": "A singleton SELECT statement returned multiple rows.",
+      "fix": "Check LA_SINGLESEL_ISOCS_CDY ZPARM if Lock Avoidance is enabled."
+    },
+    {
+      "code": "+100",
+      "description": "No row found",
+      "cause": "Normal end of data or no rows satisfied the search condition.",
+      "fix": "Normal condition; ensure logic handles empty result sets."
+    },
+    {
+      "code": "-154",
+      "description": "Invalid View/Table Def",
+      "cause": "CREATE VIEW references a remote object or unsupported AI function.",
+      "fix": "Remove references to AI functions (AI_SIMILARITY, etc.) in View definitions."
+    },
+    {
+      "code": "-356",
+      "description": "Invalid Key Expression",
+      "cause": "Index key expression contains subquery, special register, or unsupported function.",
+      "fix": "Ensure index expression is deterministic and does not use AI functions."
+    },
+    {
+      "code": "-390",
+      "description": "Object/Specific Name Invalid",
+      "cause": "Function used in invalid context (e.g., scalar where table function required).",
+      "fix": "Check if function (like AI_SIMILARITY) is allowed in the specific SQL context."
+    },
+    {
+      "code": "-20058",
+      "description": "Invalid MQT Fullselect",
+      "cause": "MQT definition contains restricted elements (LOBs, XML, AI functions).",
+      "fix": "Remove prohibited items (e.g., AI_ANALOGY, LOBs) from MQT fullselect."
+    },
+    {
+      "code": "-20474",
+      "description": "Permission/Mask Fail",
+      "cause": "CREATE PERMISSION/MASK references invalid object (e.g., declared temp table).",
+      "fix": "Ensure mask does not reference AI functions or table with security labels."
+    },
+    {
+      "code": "-20524",
+      "description": "Invalid Period Spec",
+      "cause": "Invalid SYSTEM_TIME or BUSINESS_TIME period specification.",
+      "fix": "Ensure period expression returns built-in data type; remove AI functions."
+    },
+    {
+      "code": "-20577",
+      "description": "SQL DI Not Configured",
+      "cause": "Attempted to use SQL Data Insights function but feature is not configured.",
+      "fix": "Run DSNTIJAI job to configure SQL DI or apply required PTFs."
+    },
+    {
+      "code": "-20578",
+      "description": "Undetermined Model Cols",
+      "cause": "Model columns cannot be inferred for SQL DI function arguments.",
+      "fix": "Explicitly specify USING MODEL COLUMN in the function invocation."
+    },
+    {
+      "code": "-20579",
+      "description": "Model/Column Invalid",
+      "cause": "Model or column referenced in AI function is missing, disabled, or incomplete.",
+      "fix": "Verify model status in SQL DI UI; ensure model is trained and enabled."
+    },
+    {
+      "code": "-20580",
+      "description": "Unusable AI Argument",
+      "cause": "Arguments in AI_ANALOGY (source/target) are invalid (e.g., same value).",
+      "fix": "Ensure source-1 and source-2 arguments are not identical values."
+    },
+    {
+      "code": "+20577",
+      "description": "SQL DI Warning",
+      "cause": "AI_COMMONALITY executed on model trained without required APAR.",
+      "fix": "Apply z/OS APAR for AI_COMMONALITY and retrain the model."
+    }
+  ],
+  "performance_tips": [
+    {
+      "avoid": "Universal Lock Timeout (Default IRLMRWT ZPARM)",
+      "recommendation": "Use Application-level lock timeout (CURRENT LOCK TIMEOUT) for client-facing apps to fail fast.",
+      "impact": "Improves availability; prevents users from staring at frozen screens for 30s."
+    },
+    {
+      "avoid": "Standard Insert into PBG (Partition-by-Growth)",
+      "recommendation": "Rely on Db2 13 Insert Latch Retry logic (automatic) which retries failed partition locks before failing.",
+      "impact": "Increases insert success rate by ~26.5%; reduces -904/-913 errors."
+    },
+    {
+      "avoid": "Repeated Index Getpages for sequential batch",
+      "recommendation": "Leverage Index Lookaside (ILA) to check if requests can be satisfied from the current leaf page.",
+      "impact": "Reduces CPU consumption and index B-tree traversals."
+    },
+    {
+      "avoid": "Full Sorts on Long VARCHARs",
+      "recommendation": "Use SUBSTR on ORDER BY columns if full length isn't needed (Db2 13 also optimizes this automatically).",
+      "impact": "Reduces Sort Work File size; reduces CPU by up to 60%."
+    },
+    {
+      "avoid": "zHyperLink Reads on Low Hit-Rate Data",
+      "recommendation": "Disable zHyperLink if disk cache hit rate is < 75-80%.",
+      "impact": "zHyperLink spins CPU while waiting; low cache hits waste CPU without latency benefit."
+    },
+    {
+      "avoid": "Huffman Decompression on z13",
+      "recommendation": "Avoid querying Huffman data on z13; ensure hardware is z14 or later.",
+      "impact": "z13 requires software decompression (EPROC), causing massive CPU overhead (924% increase)."
+    },
+    {
+      "avoid": "Profile Tables (Always On)",
+      "recommendation": "Set PROFILE_ENABLED='N' and STOP PROFILE when not actively monitoring/governing.",
+      "impact": "Reducing non-matching profile lookups saves Class 2 CPU time (up to 10% overhead)."
+    },
+    {
+      "avoid": "Index Page Splits in Data Sharing",
+      "recommendation": "Monitor IFCID 396 and SYSIBM.SYSINDEXSPACESTATS to identify \"long splits\" (>1s).",
+      "impact": "Helps identify tuning opportunities (e.g., adjust PCTFREE) to reduce latch contention."
+    },
+    {
+      "avoid": "LOB Compression (Generic)",
+      "recommendation": "Use z15 Integrated Accelerator for zEDC.",
+      "impact": "Reduces CPU cost; handles higher compression throughput than z14 PCIe cards."
+    },
+    {
+      "avoid": "Singleton Select Locking",
+      "recommendation": "Enable LA_SINGLESEL_ISOCS_CDY ZPARM to allow lock avoidance on singleton selects.",
+      "impact": "Significantly lessens locking activity; slight risk of false -811/+100 in rare timing windows."
+    }
+  ]
+}
