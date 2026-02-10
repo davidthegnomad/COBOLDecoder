@@ -1,16 +1,53 @@
-# cobol_decoder
+# COBOLDecoder 📟✨
 
-A new Flutter project.
+**COBOLDecoder** is a mobile-first reference app designed for the next generation of mainframe engineers. It bridges the gap between modern programming concepts and legacy z/OS systems with a sleek, "Terminal Neon" aesthetic.
 
-## Getting Started
+## 🚀 The Vibe
+*   **Theme:** "Terminal Neon" - A high-contrast dark mode ("Obsidian") with "Cyber-Lime" and "Electric-Purple" accents.
+*   **Aesthetics:** Glassmorphism components, retro-terminal scanlines, and Google Fonts (Outfit & Inter).
+*   **Target Audience:** Junior mainframe engineers (Millennials/Gen Z).
 
-This project is a starting point for a Flutter application.
+## ⚡ Features
 
-A few resources to get you started if this is your first Flutter project:
+### 🔍 Decoder Hub
+A powerful search interface that supports "fuzzy search" for standard SQL keywords and their DB2 for z/OS equivalents.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### 🔄 Logic Swapper
+A split-view component that translates Standard SQL logic into z/OS specific syntax, complete with explanations and examples.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### 🐛 Error Decoder
+Instantly decode cryptic 3 or 4-digit SQLCODEs (e.g., `-904`, `-911`) into human-readable explanations with actionable "Fix Steps."
+
+### 🛡️ Performance Quest
+A gamified "Pro-Tips" section that turns performance optimization into a quest, highlighting efficiency tricks for z/OS to avoid CPU waste.
+
+## 🛠️ Tech Stack
+*   **Framework:** [Flutter](https://flutter.dev) (Mobile First)
+*   **State Management:** [Riverpod](https://riverpod.dev)
+*   **Fonts:** [Google Fonts](https://pub.dev/packages/google_fonts)
+*   **Icons:** Cupertino Icons
+*   **Data:** Local JSON (Offline-first architecture)
+
+## 📦 Installation
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/davidthegnomad/COBOLDecoder.git
+    cd COBOLDecoder
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    flutter pub get
+    ```
+
+3.  **Run the app:**
+    ```bash
+    flutter run
+    ```
+
+## 🤝 Contributing
+Contributions are welcome! Pull requests are encouraged for new "quests," additional error codes, or UI enhancements.
+
+## 📄 License
+This project is licensed under the MIT License.
