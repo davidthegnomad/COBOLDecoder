@@ -1,0 +1,55 @@
+# COBOL Decoder — Agent Directives
+
+## Identity
+You are working in **COBOL Decoder**, a Flutter reference app for mainframe engineers bridging modern development concepts with legacy z/OS systems.
+This project is part of the Gnomad Enterprise workspace at `/mnt/SteamDrive/ORGANIZATION/`.
+
+## Session Start Protocol (MANDATORY)
+1. Read `.agents/LOGS/SESSION_STATE.md` FIRST — this is your context from the last session.
+2. If stale or missing, read the latest `.agents/LOGS/SESSIONS/HANDOFF_*.md`.
+3. Run `git log -3 --oneline` to verify state matches reality.
+
+## Stack
+- **Framework**: Flutter (Dart SDK >=3.2.0 <4.0.0)
+- **Language**: Dart
+- **Key Dependencies**: flutter_riverpod (state management), google_fonts (typography), glassmorphism (UI effects)
+
+## Key Commands
+- Dev: `flutter run`
+- Build (APK): `flutter build apk`
+- Build (iOS): `flutter build ios`
+- Build (Desktop): `flutter build linux` / `flutter build macos` / `flutter build windows`
+- Test: `flutter test`
+- Analyze: `flutter analyze`
+
+## Conventions
+- Use Riverpod for all state management — providers live alongside the features they serve.
+- Follow flutter_lints rules; run `flutter analyze` before committing.
+- Asset data lives in `assets/data.json` — keep the schema stable; document changes in DECISIONS/.
+- Use Material Design (`uses-material-design: true`) with Google Fonts for custom typography.
+
+## Agent Infrastructure
+- `AGENTS.md` — Agent roster and responsibilities
+- `.agents/CHRONICLER.md` — Session memory protocol (follow trigger rules)
+- `.agents/PROJECT_SOP.md` — Full build/test/deploy procedures
+- `.agents/SKILLS/` — Evolving skill files (update when you learn something)
+- `.agents/DECISIONS/` — Log architectural decisions here
+
+## Cross-Project Resources
+- Swarm Core: `/mnt/SteamDrive/ORGANIZATION/02_ai_engineering/gnomad-swarm-core/`
+- RAG Search: `/mnt/SteamDrive/ORGANIZATION/02_ai_engineering/workspace-rag/`
+- VAULT (secrets): `/mnt/SteamDrive/ORGANIZATION/03_admin_finance/VAULT/`
+- Full workspace map: `/mnt/SteamDrive/ORGANIZATION/WORKSPACE.md`
+- **Skill Library**: `/mnt/SteamDrive/ORGANIZATION/SKILL_LIBRARY/` — 573 reusable skills, recipes, and patterns. See `SKILL_LIBRARY/README.md` for the catalog. Orchestrators can pull relevant skills into `.agents/SKILLS/` when beneficial.
+
+## Chronicler Protocol
+At checkpoints ("save session"), end of day ("done for the day"), or after git push:
+1. Update `.agents/LOGS/SESSION_STATE.md`
+2. Append to today's `.agents/LOGS/SESSIONS/HANDOFF_YYYY-MM-DD.md`
+See `.agents/CHRONICLER.md` for full trigger rules.
+
+## Self-Evolution
+When you discover a better pattern or solve a hard problem, capture it:
+1. Append to `.agents/SKILLS/LEARNING_LOG.md`
+2. Create/update a skill file in `.agents/SKILLS/`
+See `.agents/SKILLS/SELF_EVOLUTION.md` for the full protocol.
